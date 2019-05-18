@@ -55,20 +55,7 @@ public class _01_RobotRace {
 				}*/
 		//8. try different races with different amounts of robots.
     	
-	    //9. make the robots race around a circular track.
-			Robot artist = new Robot("batman");
-			artist.miniaturize();
-			artist.setSpeed(10000);
-			artist.sparkle();
-			artist.penDown();
-			artist.setRandomPenColor();
-			artist.moveTo(270, 300);
-			for (int a = 0; a < 360; a++) {
-				artist.move(1);
-				artist.turn(1);
-			}
-			artist.penUp();
-			
+	    //9. make the robots race around a circular track.			
 			Robot artist2 = new Robot("batman");
 			artist2.miniaturize();
 			artist2.setSpeed(10000);
@@ -87,25 +74,40 @@ public class _01_RobotRace {
 				robots2[i].miniaturize();
 				robots2[i].setY(300);
 				robots2[i].setX(45*i + 50);
+				robots2[i].setSpeed(1000000);
 			}
 			
 			boolean noCircleWinner = true;
 			
 			int circleWinner = 0;
-			Random rand = new Random();
+			
 			while (noCircleWinner) {
 				for (int i = 0; i < robots2.length; i++) {
 					if (noCircleWinner) {
-						int random = rand.nextInt(robots2.length);
+						Random rand = new Random();
+						int random = rand.nextInt(robots2.length * 2);
 						robots2[i].turn(random);
 						robots2[i].move(random);
 					}
-					if (robots2[i].getX() == (45*i + 50) && robots2[i].getY() == 300) {
+					if (robots2[i].getX() == (45*i + 50) && robots2[i].getY() == 305) {
 						noCircleWinner = false;
 						circleWinner = i;
 					}
 				}
 			}
+			
+			for (int i = 0; i < robots2.length; i++) {
+				if (i == circleWinner) {
+					robots2[i].moveTo(450, 300);
+				} else {
+					robots2[i].moveTo(50*i + 60, 500);
+				}
+			}
+				robots2[circleWinner].expand();
+				robots2[circleWinner].sparkle();
+				for (int j = 0; j < 300; j++) {
+					robots2[circleWinner].turn(j*3);
+				}
 			
 			/*for (int k = 0; k < robots2.length; k++) {
 				for (int j = 0; j < 360; j++) {
